@@ -6,7 +6,7 @@
 ]
 let carrito = []
 let contenedorProductos = document.getElementById("contenedorProductos")
-
+const botones = document.getElementById("agregar${producto.id}")
 for (const producto of productos){
    let tarjetaProducto = document.createElement('div')
    tarjetaProducto.className = 'producto'
@@ -28,13 +28,14 @@ for (const producto of productos){
 </div>`
    contenedorProductos.append(tarjetaProducto) 
 
-   const botones = document.getElementsById('agregar${producto.id}')
+    
 }
-productos.forEach(producto => {
-  boton.addEventListener("click" , () => {
-    agregarAlCarrito(producto.id)
+ productos.forEach(producto => {
+   botones.addEventListener("click" , () => {
+     agregarAlCarrito(producto.id)
 
-  })
+   })
+  
 
 
 
@@ -43,7 +44,7 @@ const agregarAlCarrito  =(prodId) => {
   carrito.push(item)
 }
 });
-s
+console.log(carrito)
 
     
     
