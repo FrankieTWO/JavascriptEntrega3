@@ -56,7 +56,6 @@ for (const producto of productos){
 
 
 const mostrarCarrito = () => {
-  getcarrito();
   const modalBody = document.querySelector(".modal .modal-body");
   if (modalBody) {
     modalBody.innerHTML = "";
