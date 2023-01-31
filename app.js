@@ -6,45 +6,90 @@
 ]
 let carrito = []
 let contenedorProductos = document.getElementById("contenedorProductos")
-const botones = document.getElementById("agregar${producto.id}")
+document.addEventListener('DOMContentLoaded', () => {
+  carrito = JSON.parse(localStorage.getItem("carrito"));
+});
+
+function eliminarProducto(id){
+  const habitacionId = id
+  carrito =carrito.filter((hab) => hab.id !== habitacionId)
+  console.log(carrito)
+  mostrarCarrito()
+}
+function saveStorage(){
+  localStorage.setItem("carrito", JSON.stringify(carrito))
+  mostrarCarrito();
+}
+function getcarrito() {
+carrito = JSON.parse(localStorage.getItem("carrito"));
+}
+function agregarProducto(id){
+  const item = productos.find((prod) => prod.id === id)
+  carrito.push(item)
+  mostrarCarrito()
+
+}
+
 for (const producto of productos){
    let tarjetaProducto = document.createElement('div')
+   const botones = document.getElementById("agregar${producto.id}")
    tarjetaProducto.className = 'producto'
    tarjetaProducto.innerHTML = `
    <div class="card" style="width: 18rem;">
-  <img src="${producto.imgUrl}" class="card-img-top" alt="Imagenes de las ides">
-  <div class="card-body">
-    <h5 class="card-title">${producto.nombre}</h5>
-  </div>
-  <ul class="list-group list-group-flush">
+      <img src="${producto.imgUrl}" class="card-img-top" alt="Imagenes de las ides">
+      <div class="card-body">
+      <h5 class="card-title">${producto.nombre}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
     <li class="list-group-item">Vacante ${producto.disponible}</li>
     <li class="list-group-item">Valor $${producto.precio}</li>
     <li class="list-group-item">Habitacion N°  ${producto.id}</li>
-  </ul>
-  <div class="card-body">
-  <button id="agregar${producto.id}" class="botonAgregar" >Reservar</button>
-  
-  </div>
-</div>`
-   contenedorProductos.append(tarjetaProducto) 
-
-    
+    </ul>
+    <div class="card-body">
+    <button id="agregar${producto.id}" class="botonAgregar" >Reservar</button>
+    </div>
+    </div>`
+  contenedorProductos.append(tarjetaProducto)    
+  const boton = document.getElementById("agregar" + producto.id)
+  boton.addEventListener("click", () => agregarProducto(producto.id))
 }
- productos.forEach(producto => {
-   botones.addEventListener("click" , () => {
-     agregarAlCarrito(producto.id)
 
-   })
+
+const mostrarCarrito = () => {
+  getcarrito();
+  const modalBody = document.querySelector(".modal .modal-body");
+  if (modalBody) {
+    modalBody.innerHTML = "";
+    carrito.forEach((prod) => {
+      const { id, nombre, precio, disponible, imgUrl, cantidad } = prod;
+      console.log(modalBody);
+      modalBody.innerHTML += `
+      <div class="modal-contenedor">
+        <div>
+        <img class="img-fluid img-carrito" src="${imgUrl}"/>
+        </div>
+        <div>
+        <p>Producto: ${nombre}</p>
+      <p>Precio: ${precio}</p>
+      <p>Disponible :${disponible}</p>
+      <button class="btn btn-danger"  onclick="eliminarProducto(${id})">Cancelar Habitacion</button>
+        </div>
+      </div>
+      
+  
+      `;
+    });
+  }
+saveStorage()
+}
+
+
+  
   
 
 
 
-const agregarAlCarrito  =(prodId) => {
-  const item = productos.find((prod)=> prod.id ==prodId)
-  carrito.push(item)
-}
-});
-console.log(carrito)
+
 
     
     
