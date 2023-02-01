@@ -1,14 +1,12 @@
  const productos = [
-    { id: 101, nombre: "id simple", precio: 100, cantidad: 1, disponible: true, imgUrl:"./images/habDobleFoto.jpg" },
-    { id: 201, nombre: "id doble", precio: 200, cantidad: 1,  disponible: true, imgUrl:"./images/habSuiteFoto.jpg" },
-    { id: 301, nombre: "id triple", precio: 300, cantidad: 1,  disponible: true, imgUrl:"./images/habTripleFoto.jpg" },
-    { id: 401, nombre: "habitaid", precio: 400, cantidad: 1,  disponible: true, imgUrl: "./images/habTripleFoto.jpg" }
+    { id: 101, nombre: "simple", precio: 100, cantidad: 1, disponible: true, imgUrl:"./images/habDobleFoto.jpg" },
+    { id: 201, nombre: "doble", precio: 200, cantidad: 1,  disponible: true, imgUrl:"./images/habSuiteFoto.jpg" },
+    { id: 301, nombre: "triple", precio: 300, cantidad: 1,  disponible: true, imgUrl:"./images/habTripleFoto.jpg" },
+    { id: 401, nombre: "suite", precio: 400, cantidad: 1,  disponible: true, imgUrl: "./images/habTripleFoto.jpg" }
 ]
-let carrito = []
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [] ;
 let contenedorProductos = document.getElementById("contenedorProductos")
-document.addEventListener('DOMContentLoaded', () => {
-  carrito = JSON.parse(localStorage.getItem("carrito"));
-});
+
 
 function eliminarProducto(id){
   const habitacionId = id
@@ -16,16 +14,14 @@ function eliminarProducto(id){
   console.log(carrito)
   mostrarCarrito()
 }
-function saveStorage(){
-  localStorage.setItem("carrito", JSON.stringify(carrito))
-  mostrarCarrito();
-}
+
 function getcarrito() {
 carrito = JSON.parse(localStorage.getItem("carrito"));
 }
 function agregarProducto(id){
   const item = productos.find((prod) => prod.id === id)
   carrito.push(item)
+  localStorage.setItem("carrito" , JSON,stringify(carrito));
   mostrarCarrito()
 
 }
@@ -79,7 +75,6 @@ const mostrarCarrito = () => {
       `;
     });
   }
-saveStorage()
 }
 
 
