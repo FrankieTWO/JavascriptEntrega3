@@ -21,7 +21,7 @@ carrito = JSON.parse(localStorage.getItem("carrito"));
 function agregarProducto(id){
   const item = productos.find((prod) => prod.id === id)
   carrito.push(item)
-  localStorage.setItem("carrito" , JSONstringify(carrito));
+  localStorage.setItem("carrito" , JSON.stringify(carrito));
   mostrarCarrito()
 
 }
