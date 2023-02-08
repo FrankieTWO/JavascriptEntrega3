@@ -6,12 +6,20 @@
 ]
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [] ;
 let contenedorProductos = document.getElementById("contenedorProductos")
+const carritoContenedor = document.querySelector("#carritoContenedor")
+const vaciarCarrito = document.querySelector("#vaciarCarrito")
 
+if (vaciarCarrito) {
+  vaciarCarrito.addEventListener("click", () => {
+    carrito.length = [];
+    mostrarCarrito();
+  });
+}
 
 function eliminarProducto(id){
   const habitacionId = id
   carrito =carrito.filter((hab) => hab.id !== habitacionId)
-  console.log(carrito)
+  
   mostrarCarrito()
 }
 
@@ -32,7 +40,7 @@ for (const producto of productos){
    tarjetaProducto.className = 'producto'
    tarjetaProducto.innerHTML = `
    <div class="card" style="width: 18rem;">
-      <img src="${producto.imgUrl}" class="card-img-top" alt="Imagenes de las ides">
+      <img src="${producto.imgUrl}" class="card-img-top" alt="Imagenes de las habitacioes">
       <div class="card-body">
       <h5 class="card-title">${producto.nombre}</h5>
     </div>
@@ -57,7 +65,7 @@ const mostrarCarrito = () => {
     modalBody.innerHTML = "";
     carrito.forEach((prod) => {
       const { id, nombre, precio, disponible, imgUrl, cantidad } = prod;
-      console.log(modalBody);
+      
       modalBody.innerHTML += `
       <div class="modal-contenedor">
         <div>
@@ -69,12 +77,19 @@ const mostrarCarrito = () => {
       <p>Disponible :${disponible}</p>
       <button class="btn btn-danger"  onclick="eliminarProducto(${id})">Cancelar Habitacion</button>
         </div>
-      </div>
-      
-  
-      `;
+      </div>`;
     });
   }
+  if (carrito.length === 0) {
+    console.log("Nada");
+    modalBody.innerHTML = `
+    <p class="text-center text-primary parrafo">¡Aun no agregaste nada!</p>
+    `;
+  } else {
+    console.log("Algo");
+  }
+  carritoContenedor.textContent = carrito.length;
+
 }
 
 
