@@ -1,11 +1,17 @@
+
+ 
+main {
+  width: 100%;
+  height: 100%;
+}
+@media screen and (min-width: 768px) { 
 #contenedorProductos {
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   background-color: white;
   display: flex;
   justify-content: space-around;
-  width: auto;
-  height: auto;
+  
 }
 .producto {
   width: 70%;
@@ -15,7 +21,7 @@
   border: 1px solid black;
   text-align: center;
   
-}
+} 
 img {
   width: 70%;
   height: 70%;
@@ -29,3 +35,4 @@ img {
   width:200px;
   padding:20px;
 } 
+}
