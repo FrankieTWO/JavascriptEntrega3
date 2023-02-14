@@ -1,10 +1,10 @@
- const productos = [
-    { id: 101, nombre: "simple", precio: 100, cantidad: 1, disponible: true, imgUrl:"./images/habDobleFoto.jpg" },
-    { id: 201, nombre: "doble", precio: 200, cantidad: 1,  disponible: true, imgUrl:"./images/habSuiteFoto.jpg" },
-    { id: 301, nombre: "triple", precio: 300, cantidad: 1,  disponible: true, imgUrl:"./images/habTripleFoto.jpg" },
-    { id: 401, nombre: "suite", precio: 400, cantidad: 1,  disponible: true, imgUrl: "./images/habTripleFoto.jpg" }
-]
-// let carrito = JSON.parse(localStorage.getItem("carrito")) || [] ;
+
+
+
+
+
+
+
 
 
 let carrito = [];
@@ -21,7 +21,7 @@ if (productoGuardado) {
   const carritoContenido = JSON.parse(productoGuardado);
   const carritoLongitud = carritoContenido.length;
   carritoContenedor.textContent = carritoLongitud;
-} 
+}
 for (const item of carritoGuardado) {
   console.log(carrito)
   mostrarCarrito
@@ -59,7 +59,6 @@ function eliminarProducto(id){
   mostrarCarrito()
 }
 
-
 function agregarProducto(id){
   const existe = carrito.some(prod => prod.id == id)
   if (existe){
@@ -80,28 +79,6 @@ function agregarProducto(id){
   mostrarCarrito();
 }
 
-//   if (existe){
-//     const prod = carrito.map(prod => {
-//       if(prod.id === id ){
-//         prod.cantidad++
-//         console.log(carrito + "doble cantidad")
-//       }
-//     })
-//   }else {
-//     const item = productos.find((prod) => prod.id === id)
-//     carrito.push(item)
-//     carritoGuardado.push(item)
-//     console.log(carrito + "agregado al carrito" )
-//     localStorage.setItem("carrito", JSON.stringify(carritoGuardado))
-  
-    
-
-//   }
-
-  
-//   mostrarCarrito()
-
-// }
 
 for (const producto of productos){
    let tarjetaProducto = document.createElement('div')
@@ -126,65 +103,44 @@ for (const producto of productos){
   const boton = document.getElementById("agregar" + producto.id)
   boton.addEventListener("click", () => agregarProducto(producto.id))
 }
-
-
+// linea 105
 const mostrarCarrito = () => {
-  const modalBody = document.querySelector(".modal .modal-body");
-  if (modalBody) {
-    modalBody.innerHTML = "";
-    carrito.forEach((prod) => {
-      const { id, nombre, precio, disponible, imgUrl, cantidad } = prod;
-      modalBody.innerHTML += `
-      <div class="modal-contenedor">
-        <div>
-        <img class="img-fluid img-carrito" src="${imgUrl}"/>
-        </div>
-        <div>
-        <p>Producto: ${nombre}</p>
-      <p>Precio: ${precio}</p>
-      <p>Disponible :${disponible}</p>
-      <p>Cantidad :${cantidad}</p>
-      <button class="btn btn-danger"  onclick="eliminarProducto(${id})">Cancelar Habitacion</button>
-        </div>
-      </div>`;
-    });
+    const modalBody = document.querySelector(".modal .modal-body");
+    if (modalBody) {
+      modalBody.innerHTML = "";
+      carrito.forEach((prod) => {
+        const { id, nombre, precio, disponible, imgUrl, cantidad } = prod;
+        modalBody.innerHTML += `
+        <div class="modal-contenedor">
+          <div>
+          <img class="img-fluid img-carrito" src="${imgUrl}"/>
+          </div>
+          <div>
+          <p>Producto: ${nombre}</p>
+        <p>Precio: ${precio}</p>
+        <p>Disponible :${disponible}</p>
+        <p>Cantidad :${cantidad}</p>
+        <button class="btn btn-danger"  onclick="eliminarProducto(${id})">Cancelar Habitacion</button>
+          </div>
+        </div>`;
+      });
+    }
+    if (carrito.length === 0) {
+      
+      modalBody.innerHTML = `
+      <p class="text-center text-primary parrafo">¡Aun no agregaste nada!</p>
+      `;
+    } else {
+      // AÑADISTE UN ITEM AL CARRITO 
+  const productoGuardado = localStorage.getItem('carrito');
+  console.log(productoGuardado)
+  if (productoGuardado) {
+    const carritoContenido = JSON.parse(productoGuardado);
+    const carritoLongitud = carritoContenido.length;
+    carritoContenedor.textContent = carritoLongitud;
   }
-  if (carrito.length === 0) {
-    
-    modalBody.innerHTML = `
-    <p class="text-center text-primary parrafo">¡Aun no agregaste nada!</p>
-    `;
-  } else {
-    // AÑADISTE UN ITEM AL CARRITO 
-    const productoGuardado = localStorage.getItem('carrito');
-    console.log(productoGuardado)
-    if (productoGuardado) {
-      const carritoContenido = JSON.parse(productoGuardado);
-      const carritoLongitud = carritoContenido.length;
-      carritoContenedor.textContent = carritoLongitud;
     }
-      }
-      
-      precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0)
-      
-    }
-
-
-
-//   }
-//   carritoContenedor.innerText = carrito.length;
-
-//   precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0)
-
-// }
-
-
-  
-  
-
-
-
-
-
     
+    precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0)
     
+  }
