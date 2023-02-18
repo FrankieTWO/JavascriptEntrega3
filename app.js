@@ -8,11 +8,12 @@ const procesarCompra = document.getElementById("procesarCompra")
 
 let arrayProductos;
 
-fetch('productos.json')
+fetch('./productos.json')
   .then(response => response.json())
   .then(data => {
-    arrayProductos = data;
-    // Do something with the data, such as rendering it on the page
+    data = arrayProductos;
+    renderProductos(arrayProductos)
+    
     console.log(arrayProductos);
   })
   .catch(error => {
@@ -102,7 +103,7 @@ arrayProductos.forEach(producto => {
   boton.addEventListener("click", () => agregarProducto(producto.id))
 });{
 }
- const mostrarCarrito = () => {
+ function mostrarCarrito(carrito) {
    const modalBody = document.querySelector(".modal .modal-body");
    if (modalBody) {
      modalBody.innerHTML = "";
