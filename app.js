@@ -1,10 +1,3 @@
-//   const productos = [
-//      { id: 101, nombre: "simple", precio: 100, cantidad: 1, disponible: true, imgUrl:"./images/habDobleFoto.jpg" },
-//      { id: 201, nombre: "doble", precio: 200, cantidad: 1,  disponible: true, imgUrl:"./images/habSuiteFoto.jpg" },
-//      { id: 301, nombre: "triple", precio: 300, cantidad: 1,  disponible: true, imgUrl:"./images/habTripleFoto.jpg" },
-//      { id: 401, nombre: "suite", precio: 400, cantidad: 1,  disponible: true, imgUrl: "./images/habTripleFoto.jpg" }
-//  ]
-
 let carrito = [];
 let carritoGuardado = [];
 let contenedorProductos = document.getElementById("contenedorProductos")
@@ -13,23 +6,29 @@ const vaciarCarrito = document.querySelector("#vaciarCarrito")
 const precioTotal = document.getElementById("precioTotal")
 const procesarCompra = document.getElementById("procesarCompra")
 
-fetch("./productos.json")
-  .then((response) => response.json())
-  .then((arrayProductos) => renderProductos(arrayProductos));
-  
-carritoContenedor.addEventListener("click", function () {
-    mostrarCarrito();
+let arrayProductos;
+
+fetch('productos.json')
+  .then(response => response.json())
+  .then(data => {
+    arrayProductos = data;
+    // Do something with the data, such as rendering it on the page
+    console.log(arrayProductos);
+  })
+  .catch(error => {
+    console.error('Error fetching data: ', error);
   });
+  renderProductos();
+
  const productoGuardado = localStorage.getItem('carrito');
  if (productoGuardado) {
    const carritoContenido = JSON.parse(productoGuardado);
    const carritoLongitud = carritoContenido.length;
    carritoContenedor.textContent = carritoLongitud;
  } 
- for (const item of carritoGuardado) {
-   console.log(carrito)
-   mostrarCarrito    
- }
+ carritoContenedor.addEventListener("click", function () {
+  mostrarCarrito();
+});
 
 procesarCompra.addEventListener("click", () => {
   if (carrito.length === 0){
