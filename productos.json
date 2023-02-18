@@ -1,6 +1,6 @@
 [
-    { "id": 101, "nombre": "simple", "precio": 100, "cantidad": 1, "disponible": true, "imgUrl":"./images/habDobleFoto.jpg" },
-    { "id": 201, "nombre": "doble", "precio": 200, "cantidad": 1,  "disponible": true, "imgUrl":"./images/habSuiteFoto.jpg" },
-    { "id": 301, "nombre": "triple", "precio": 300, "cantidad": 1,  "disponible": true, "imgUrl":"./images/habTripleFoto.jpg" },
-    { "id": 401, "nombre": "suite", "precio": 400, "cantidad": 1,  "disponible": true, "imgUrl": "./images/habTripleFoto.jpg" }
+    { "id": 101, "nombre": "simple", "precio": 100, "cantidad": 1, "imgUrl":"./images/habDobleFoto.jpg" },
+    { "id": 201, "nombre": "doble", "precio": 200, "cantidad": 1, "imgUrl":"./images/habSuiteFoto.jpg" },
+    { "id": 301, "nombre": "triple", "precio": 300, "cantidad": 1, "imgUrl":"./images/habTripleFoto.jpg" },
+    { "id": 401, "nombre": "suite", "precio": 400, "cantidad": 1, "imgUrl": "./images/habTripleFoto.jpg" }
 ]
