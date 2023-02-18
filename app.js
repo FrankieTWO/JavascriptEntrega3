@@ -5,8 +5,6 @@
 //      { id: 401, nombre: "suite", precio: 400, cantidad: 1,  disponible: true, imgUrl: "./images/habTripleFoto.jpg" }
 //  ]
 
-
-
 let carrito = [];
 let carritoGuardado = [];
 let contenedorProductos = document.getElementById("contenedorProductos")
@@ -15,17 +13,14 @@ const vaciarCarrito = document.querySelector("#vaciarCarrito")
 const precioTotal = document.getElementById("precioTotal")
 const procesarCompra = document.getElementById("procesarCompra")
 
-fetch("./data.json")
+fetch("./productos.json")
   .then((response) => response.json())
-  .then((arrayProductos) => mostrarCarrito(arrayProductos));
+  .then((arrayProductos) => renderProductos(arrayProductos));
   
-
-
-carritoContenedor.addEventListener("click", () => {
-  mostrarCarrito();
-});
+carritoContenedor.addEventListener("click", function () {
+    mostrarCarrito();
+  });
  const productoGuardado = localStorage.getItem('carrito');
- console.log(productoGuardado)
  if (productoGuardado) {
    const carritoContenido = JSON.parse(productoGuardado);
    const carritoLongitud = carritoContenido.length;
@@ -33,9 +28,7 @@ carritoContenedor.addEventListener("click", () => {
  } 
  for (const item of carritoGuardado) {
    console.log(carrito)
-   mostrarCarrito
-  
-  
+   mostrarCarrito    
  }
 
 procesarCompra.addEventListener("click", () => {
@@ -49,9 +42,7 @@ procesarCompra.addEventListener("click", () => {
   })
 }  else {
   // ACA PASA ALGO CUANDO COMPRAS 
-}
-
-})
+}})
 
 if (vaciarCarrito) {
   vaciarCarrito.addEventListener("click", () => {
@@ -67,7 +58,6 @@ function eliminarProducto(id){
   mostrarCarrito()
 }
 
-
 function agregarProducto(id){
   const existe = carrito.some(prod => prod.id == id)
 
@@ -79,22 +69,17 @@ function agregarProducto(id){
        }
      })
    }else {
-     const item = productos.find((prod) => prod.id === id)
+     let item = carrito.find((prod) => prod.id === id)
+     console.log(item)
      carrito.push(item)
      carritoGuardado.push(item)
-    console.log(carrito + "agregado al carrito" )
      localStorage.setItem("carrito", JSON.stringify(carritoGuardado))
   
-    
-
    }
-
-  
-   mostrarCarrito()
-
- }
-
-for (const producto of productos){
+  mostrarCarrito();
+}
+ function renderProductos(arrayProductos) {
+arrayProductos.forEach(producto => {
    let tarjetaProducto = document.createElement('div')
    const botones = document.getElementById("agregar${producto.id}")
    tarjetaProducto.className = 'producto'
@@ -116,8 +101,8 @@ for (const producto of productos){
   contenedorProductos.append(tarjetaProducto)    
   const boton = document.getElementById("agregar" + producto.id)
   boton.addEventListener("click", () => agregarProducto(producto.id))
+});{
 }
-
  const mostrarCarrito = () => {
    const modalBody = document.querySelector(".modal .modal-body");
    if (modalBody) {
@@ -140,8 +125,6 @@ for (const producto of productos){
      });
    }
    if (carrito.length === 0) {
-    
-    
      modalBody.innerHTML = `
      <p class="text-center text-primary parrafo">¡Aun no agregaste nada!</p>
      `;
@@ -155,11 +138,9 @@ for (const producto of productos){
         carritoContenedor.textContent = carrito.length;
      
        }
-      
-       
-      
-     }
-
+           
+           }
+}
 
 
  
