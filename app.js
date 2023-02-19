@@ -1,26 +1,36 @@
+const arrayProductos = [
+  { id: 101, nombre: "simple",precio: 100,cantidad: 1,imgUrl:"./images/habDobleFoto.jpg" },
+  { id: 201, nombre: "doble", precio: 200, cantidad: 1, imgUrl:"./images/habSuiteFoto.jpg" },
+  { id: 301, nombre: "triple",precio: 300,cantidad: 1,imgUr:"./images/habTripleFoto.jpg" },
+  { id: 401, nombre: "suite", precio: 400, cantidad: 1, imgUrl: "./images/habTripleFoto.jpg"}
+]
+
+
+
+
+
 let carrito = [];
 let carritoGuardado = [];
-let contenedorProductos = document.getElementById("contenedorProductos")
+let cotenedorProductos = document.getElementById("contenedorProductos")
 const carritoContenedor = document.querySelector("#carritoContenedor")
-const vaciarCarrito = document.querySelector("#vaciarCarrito")
+const vaciarCarrito = document.getElementById("vaciarCarrito")
 const precioTotal = document.getElementById("precioTotal")
 const procesarCompra = document.getElementById("procesarCompra")
 
-let arrayProductos;
-async function retrieveData() {
-  fetch('./productos.json')
-  .then(response => response.json())
-  .then(data => {
-    data = arrayProductos;
-    // renderProductos(arrayProductos)
+// let arrayProductos;
+
+//   fetch('./productos.json')
+//   .then(response => response.json())
+//   .then(data => {
+//     data = arrayProductos;
+     
     
-    console.log(arrayProductos);
-  })
-  .catch(error => {
-    console.error('Error fetching data: ', error);
-  });
-}
-retrieveData();
+//     console.log(data);
+//   })
+//   .catch(error => {
+//     console.error('Error fetching data: ', error);
+//   });
+
   
 
  const productoGuardado = localStorage.getItem('carrito');
@@ -29,7 +39,7 @@ retrieveData();
    const carritoLongitud = carritoContenido.length;
    carritoContenedor.textContent = carritoLongitud;
  } 
- carritoContenedor.addEventListener("click", mostrarCarrito());
+ 
 
 procesarCompra.addEventListener("click", () => {
   if (carrito.length === 0){
@@ -59,7 +69,8 @@ function eliminarProducto(id){
 }
 
 function agregarProducto(id){
-  const existe = carrito.some(prod => prod.id == id)
+  const item = arrayProductos.find((prod) => prod.id === id)
+  const existe = carrito.some(prod => prod.id === id)
    if (existe){
      const prod = carrito.map(prod => {
       if(prod.id === id ){
@@ -68,7 +79,6 @@ function agregarProducto(id){
      })
    }else {
      let item = carrito.find((prod) => prod.id === id)
-     console.log(item)
      carrito.push(item)
      carritoGuardado.push(item)
      localStorage.setItem("carrito", JSON.stringify(carritoGuardado))
@@ -76,7 +86,7 @@ function agregarProducto(id){
   mostrarCarrito();
 }
 
- function renderProductos(arrayProductos) {
+
   arrayProductos.forEach(producto => {
    let tarjetaProducto = document.createElement('div')
    const botones = document.getElementById("agregar${producto.id}")
@@ -99,11 +109,11 @@ function agregarProducto(id){
   contenedorProductos.append(tarjetaProducto)    
   const boton = document.getElementById("agregar" + producto.id)
   boton.addEventListener("click", () => agregarProducto(producto.id))
-})};
+});
 
- function mostrarCarrito(carrito) {
+const mostrarCarrito = () => {
    const modalBody = document.querySelector(".modal .modal-body");
-   if (modalBody) {
+   
      modalBody.innerHTML = "";
      carrito.forEach((prod) => {
        const { id, nombre, precio, disponible, imgUrl, cantidad } = prod;
@@ -121,7 +131,7 @@ function agregarProducto(id){
          </div>
        </div>`;
      });
-   }
+   
    if (carrito.length === 0) {
      modalBody.innerHTML = `
      <p class="text-center text-primary parrafo">¡Aun no agregaste nada!</p>
@@ -138,7 +148,7 @@ function agregarProducto(id){
        }
            
            }
-
+           carritoContenedor.addEventListener("click", mostrarCarrito());
 
 
  
