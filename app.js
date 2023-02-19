@@ -7,19 +7,21 @@ const precioTotal = document.getElementById("precioTotal")
 const procesarCompra = document.getElementById("procesarCompra")
 
 let arrayProductos;
-
-fetch('./productos.json')
+async function retrieveData() {
+  fetch('./productos.json')
   .then(response => response.json())
   .then(data => {
     data = arrayProductos;
-    renderProductos(arrayProductos)
+    // renderProductos(arrayProductos)
     
     console.log(arrayProductos);
   })
   .catch(error => {
     console.error('Error fetching data: ', error);
   });
-  renderProductos();
+}
+retrieveData();
+  
 
  const productoGuardado = localStorage.getItem('carrito');
  if (productoGuardado) {
@@ -27,9 +29,7 @@ fetch('./productos.json')
    const carritoLongitud = carritoContenido.length;
    carritoContenedor.textContent = carritoLongitud;
  } 
- carritoContenedor.addEventListener("click", function () {
-  mostrarCarrito();
-});
+ carritoContenedor.addEventListener("click", mostrarCarrito());
 
 procesarCompra.addEventListener("click", () => {
   if (carrito.length === 0){
@@ -60,8 +60,6 @@ function eliminarProducto(id){
 
 function agregarProducto(id){
   const existe = carrito.some(prod => prod.id == id)
-
-
    if (existe){
      const prod = carrito.map(prod => {
       if(prod.id === id ){
@@ -74,12 +72,12 @@ function agregarProducto(id){
      carrito.push(item)
      carritoGuardado.push(item)
      localStorage.setItem("carrito", JSON.stringify(carritoGuardado))
-  
-   }
+    }
   mostrarCarrito();
 }
+
  function renderProductos(arrayProductos) {
-arrayProductos.forEach(producto => {
+  arrayProductos.forEach(producto => {
    let tarjetaProducto = document.createElement('div')
    const botones = document.getElementById("agregar${producto.id}")
    tarjetaProducto.className = 'producto'
@@ -101,8 +99,8 @@ arrayProductos.forEach(producto => {
   contenedorProductos.append(tarjetaProducto)    
   const boton = document.getElementById("agregar" + producto.id)
   boton.addEventListener("click", () => agregarProducto(producto.id))
-});{
-}
+})};
+
  function mostrarCarrito(carrito) {
    const modalBody = document.querySelector(".modal .modal-body");
    if (modalBody) {
@@ -140,7 +138,7 @@ arrayProductos.forEach(producto => {
        }
            
            }
-}
+
 
 
  
